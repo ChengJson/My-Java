@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chengzi.service.IStudentDao">
+    <insert id="insertStudent" parameterType="com.chengzi.beans.Student">
+         insert into student(id,name,age,score) values (#{id},#{name},#{age},#{score})
+    </insert>
+
+    <insert id="insertStudentCachId" parameterType="com.chengzi.beans.Student">
+        insert into student(id,name,age,score) values (#{id},#{name},#{age},#{score})
+        <selectKey resultType="int" keyProperty="id" order="BEFORE">
+            SELECT ACT_EVT_LOG_SEQ.NEXTVAL from dual
+        </selectKey>
+    </insert>
+
+    <delete id="deleteStudentById">
+        delete from student where id = #{id}
+    </delete>
+
+    <delete id="updateStudent">
+        update student set name = 'update',age=#{age jdb},score=#{score} where id = #{id}
+    </delete>
+
+    <select id="selectAllStudents" resultType="com.chengzi.beans.Student">
+        select * from student
+    </select>
+
+    <select id="selectStudentMap" resultType="com.chengzi.beans.Student">
+        select * from student
+    </select>
+
+
+    <select id="selectStudentById" resultType="com.chengzi.beans.Student">
+        select * from student where id = #{**}
+    </select>
+
+    <select id="selectStudentByName" resultType="com.chengzi.beans.Student">
+        select * from student where name like '%' || #{studentName} || '%'
+    </select>
+
+    <select id="selectStudentByMap" resultType="com.chengzi.beans.Student">
+        select * from student where id between #{studentId} and #{stu.id}
+    </select>
+
+    <resultMap id="studenteMapper" type="com.chengzi.beans.Student">
+        <id property="id" column="t_id"/>
+        <id property="name" column="t_name"/>
+        <id property="age" column="t_age"/>
+    </resultMap>
+
+    <select id="selectStudentById2" resultMap="studenteMapper">
+        select
+            t_id,t_name,t_age,score
+        from student where t_id = #{**}
+    </select>
+
+
+    <select id="selectStudentMapType" resultType="map">
+        select * from student
+    </select>
+
+    <select id="selectStudentsByConditions" resultType="com.chengzi.beans.Student">
+        select * from student where name like '%' || #{arg0} || '%'
+                                    and age &gt; #{arg1}
+    </select>
+    <select id="selectStudentIf" resultType="com.chengzi.beans.Student">
+        select * from student where 1=1
+        <if test="name != null and name != '' ">
+            and name like '%' || #{name} || '%'
+        </if>
+        <if test="age > 0 ">
+            and age > #{age}
+        </if>
+    </select>
+
+    <select id="selectStudentWhere" resultType="com.chengzi.beans.Student">
+        select * from student
+        <where>
+            <if test="name != null and name != '' ">
+                and name like '%' || #{name} || '%'
+            </if>
+            <if test="age > 0 ">
+                and age > #{age}
+            </if>
+            <if test="score != null ">
+                and age > #{age}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectStudentChoose" resultType="com.chengzi.beans.Student">
+        select * from student
+        <where>
+            <choose>
+                <when test="age != 0  ">
+                    age >= #{age}
+                </when>
+                <when test="score != 0">
+                    score >= #{score}
+                </when>
+                <otherwise>
+                    1=1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+    <select id="selectStudentForEachArray" resultType="com.chengzi.beans.Student">
+        select * from student
+        <if test="array != null and array.length > 0">
+            where id in
+            <foreach collection="array" open="(" close=")" item="myid" separator=",">
+                #{myid}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="selectStudentForEachList" resultType="com.chengzi.beans.Student">
+        select * from student
+        <if test="list != null and list.size > 0">
+            where id in
+            <foreach collection="list" open="(" close=")" item="myid" separator=",">
+                #{myid}
+            </foreach>
+        </if>
+    </select>
+
+
+    <sql id="selectHead">
+    select * from student
+
+  </sql>
+    <select id="selectStudentBySqlFragment" resultType="com.chengzi.beans.Student">
+
+        <include refid="selectHead"/>
+
+        <if test="list != null and list.size > 0">
+            where id in
+            <foreach collection="list" open="(" close=")" item="stu" separator=",">
+                #{stu.id}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>
