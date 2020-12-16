@@ -19,16 +19,17 @@
     <title>Title</title>
 </head>
 <body>
-<button id="button" >按钮</button>
-<input id="input">
-<button id="test04" >test04</button>
+
+<input id="input"><br>
+<button id="test03" >test03</button><br>
+<button id="test04" >test04</button><br>
 
 <button id="test05" >test05</button>
 <script>
    $(function () {
        var name  = document.getElementById("input")
 
-       $("#button").click(function () {
+       $("#test03").click(function () {
            $.ajax({
                url:"test/03",
                data:{
