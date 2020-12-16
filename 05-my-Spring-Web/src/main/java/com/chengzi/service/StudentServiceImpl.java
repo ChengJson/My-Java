@@ -4,6 +4,7 @@ import com.chengzi.beans.Student;
 import com.chengzi.dao.IStudentDao;
 
 import java.io.IOException;
+import java.util.List;
 
 public class StudentServiceImpl implements IStudentService {
 
@@ -20,5 +21,11 @@ public class StudentServiceImpl implements IStudentService {
     @Override
     public void addStudent(Student student) throws IOException {
         studentDao.insertStudent(student);
+    }
+
+    @Override
+    public List<Student> getAllStudnet() throws IOException {
+        List<Student> students = studentDao.selectAllStudents();
+        return students;
     }
 }

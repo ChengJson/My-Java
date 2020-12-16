@@ -9,12 +9,13 @@
 
    <bean id="myDataSource" class="com.alibaba.druid.pool.DruidDataSource">
        <property name="url" value = "jdbc:oracle:thin:@172.31.1.5:1521:dspdb"/>
-       <property name="username" value="root"/>
+       <property name="username" value="dsp"/>
+       <property name="password" value="dsp"/>
    </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="myDataSource"/>
-        <property name="configuration" value="classpath:mybatis.xml"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -23,6 +24,6 @@
     </bean>
 
     <bean id="studentService" class="com.chengzi.service.StudentServiceImpl">
-        <property name="studentDao" ref="iStudentDao"/>
+        <property name="studentDao" ref="IStudentDao"/>
     </bean>
 </beans>

@@ -32,6 +32,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="com/chengzi/dao/mapper.xml"/>
+        <mapper resource="com/chengzi/mapper/mapper.xml"/>
     </mappers>
 </configuration>

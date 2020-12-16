@@ -33,7 +33,7 @@
     </environments>
 
     <mappers>
-        <package name="com.chengzi.service"/>
+        <package name="com.chengzi.dao"/>
     </mappers>
 
 </configuration>

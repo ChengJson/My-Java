@@ -144,7 +144,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.atguigu.appclient.AppMain</mainClass>
+                            <mainClass>com.chengzi.appclient.AppMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

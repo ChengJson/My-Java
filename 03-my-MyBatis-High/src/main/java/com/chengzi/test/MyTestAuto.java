@@ -1,14 +1,12 @@
 package com.chengzi.test;
 
 import com.chengzi.beans.Student;
-import com.chengzi.service.IStudentDao;
+import com.chengzi.dao.IStudentDao;
 import com.chengzi.util.MybatisUtils;
-import com.chengzi.util.Myloger;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.io.IOException;
 import java.util.*;

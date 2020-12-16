@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chengzi.service.IStudentDao">
+<mapper namespace="com.chengzi.dao.IStudentDao">
     <insert id="insertStudent" parameterType="com.chengzi.beans.Student">
          insert into student(id,name,age,score) values (#{id},#{name},#{age},#{score})
     </insert>
@@ -126,5 +126,20 @@
     </select>
 
 
+    <sql id="selectHead">
+    select * from student
+
+  </sql>
+    <select id="selectStudentBySqlFragment" resultType="com.chengzi.beans.Student">
+
+        <include refid="selectHead"/>
+
+        <if test="list != null and list.size > 0">
+            where id in
+            <foreach collection="list" open="(" close=")" item="stu" separator=",">
+                #{stu.id}
+            </foreach>
+        </if>
+    </select>
 
 </mapper>

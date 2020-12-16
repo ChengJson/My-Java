@@ -114,6 +114,7 @@
             <artifactId>spring-context</artifactId>
             <version>${sping.version}</version>
         </dependency>
+
         <!-- spring-web -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -121,6 +122,18 @@
             <version>${sping.version}</version>
         </dependency>
 
+        <!-- springMVC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${sping.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.0</version>
+        </dependency>
 
         <!--spring aop 实现-->
         <dependency>
@@ -129,6 +142,7 @@
             <version>1.5.3</version>
         </dependency>
 
+        <!-- AOP实现-->
         <dependency>
             <groupId>aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
@@ -182,6 +196,13 @@
             <version>6.1.14</version>
         </dependency>
 
+        <!--H2数据库-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.192</version>
+        </dependency>
+
     </dependencies>
 
     <!--编译打包插件-->
@@ -203,7 +224,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.atguigu.appclient.AppMain</mainClass>
+                            <mainClass>com.chengzi.appclient.AppMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -218,5 +239,14 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>

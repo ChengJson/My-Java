@@ -18,7 +18,8 @@ public class RegistServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         IStudentService studentService = (IStudentService)webApplicationContext.getBean("studentService");
-        studentService.addStudent(new Student());
+        studentService.addStudent(new Student(6,"abc",12,12));
+        resp.getWriter().println("SUCCESS");
     }
 
 

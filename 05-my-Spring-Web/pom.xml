@@ -203,7 +203,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.atguigu.appclient.AppMain</mainClass>
+                            <mainClass>com.chengzi.appclient.AppMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -218,5 +218,13 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>

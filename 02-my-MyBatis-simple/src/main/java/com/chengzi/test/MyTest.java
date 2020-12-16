@@ -29,7 +29,7 @@ public class MyTest {
      */
     @Test
     public void testInsert() throws IOException {
-        iStudentDao.insertStu(new Student(1,"chengzi",21,1.0));
+        iStudentDao.insertStu(new Student(1,"chengzi",31,1.0));
     }
     /**
      * 插入后获取主键id  注意oracle是序列，mysql是主键自增

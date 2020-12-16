@@ -31,7 +31,9 @@
             </dataSource>
         </environment>
     </environments>
+
     <mappers>
-        <mapper resource="com/chengzi/dao/mapper.xml"/>
+        <package name="com.chengzi.dao"/>
     </mappers>
+
 </configuration>

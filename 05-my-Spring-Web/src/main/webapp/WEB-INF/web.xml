@@ -22,6 +22,17 @@
         <servlet-name>RegistServlet</servlet-name>
         <url-pattern>/RegistServlet</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>GetAllStudent</servlet-name>
+        <servlet-class>com.chengzi.servlet.GetAllStudent</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetAllStudent</servlet-name>
+        <url-pattern>/GetAllStudent</url-pattern>
+    </servlet-mapping>
     
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

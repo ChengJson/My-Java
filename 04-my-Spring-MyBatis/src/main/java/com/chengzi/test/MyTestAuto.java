@@ -1,6 +1,7 @@
 package com.chengzi.test;
 
 import com.chengzi.beans.Student;
+import com.chengzi.dao.IStudentDao;
 import com.chengzi.service.IStudentService;
 import com.chengzi.util.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -24,6 +25,8 @@ public class MyTestAuto {
     @Before
     public void setUp(){
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        Arrays.stream(beanDefinitionNames).forEach(S-> System.out.println(S.toString()));
         studentService = (IStudentService) applicationContext.getBean("studentService");
     }
 

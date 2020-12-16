@@ -1,4 +1,4 @@
-package com.chengzi.service;
+package com.chengzi.dao;
 
 import com.chengzi.beans.Student;
 
