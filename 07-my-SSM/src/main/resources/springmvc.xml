@@ -8,9 +8,11 @@
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!--非注解处理器-->
     <bean id="/index" class="com.chengzi.controller.MyController"/>
 
 
+    <!--视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/VIEW/"/>
         <property name="suffix" value=".jsp"/>
@@ -18,17 +20,24 @@
 
     <!--urlparten为 / 表示拦截所有，静态资源会有问题，使用tomcat的默认servlet处理静态资源请求-->
     <!--下面两种方式任何一种都行 使用第二种方式必须加注解驱动，否则@RequestMapping不生效-->
-    <!--<mvc:default-servlet-handler/>-->
-    <mvc:resources mapping="/images/**" location="/images/"/>
-    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:default-servlet-handler/>
+    <!--<mvc:resources mapping="/images/**" location="/images/"/>-->
+    <!--<mvc:resources mapping="/js/**" location="/js/"/>-->
+
     <mvc:annotation-driven/>
 
-
-
+    <!--扫包-->
     <context:component-scan base-package="com.chengzi.controller"/>
 
+    <!--全局异常处理-->
     <bean class="com.chengzi.handler.GlobalExceptionReolver"/>
 
-
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.chengzi.intercepter.MyIntercepter"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

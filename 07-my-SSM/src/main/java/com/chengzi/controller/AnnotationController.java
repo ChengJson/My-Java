@@ -2,7 +2,9 @@ package com.chengzi.controller;
 
 import com.chengzi.beans.Student;
 import com.chengzi.exception.MyCustomException;
+import com.chengzi.service.IStudentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +27,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/test")
 public class AnnotationController {
+
+    @Autowired
+    IStudentService studentService;
 
     @RequestMapping(value = "/01", method = RequestMethod.GET)
     public ModelAndView test01(@RequestParam(value = "a", required = true) String a, String b) {
@@ -78,6 +83,14 @@ public class AnnotationController {
     @ResponseBody
     public void test06(String name, String b, HttpServletRequest request, HttpServletResponse response) throws IOException {
         throw new MyCustomException();
+    }
+
+
+    //测试自定义异常
+    @RequestMapping(value = "/07", method = RequestMethod.GET)
+    @ResponseBody
+    public void test07(Integer id, String b, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        studentService.addStudent(new Student(id,"213",123,123));
     }
 
 

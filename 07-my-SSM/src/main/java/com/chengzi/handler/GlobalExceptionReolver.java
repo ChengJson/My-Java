@@ -21,4 +21,12 @@ public class GlobalExceptionReolver {
         modelAndView.setViewName("myException");
         return modelAndView;
     }
+
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView MyCustomException(Exception ex){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("msg","custom Exception occur.."+ex.getMessage());
+        modelAndView.setViewName("myException");
+        return modelAndView;
+    }
 }

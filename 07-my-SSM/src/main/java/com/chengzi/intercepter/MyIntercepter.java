@@ -1,5 +1,6 @@
 package com.chengzi.intercepter;
 
+import com.chengzi.exception.MyCustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -26,6 +27,7 @@ public class MyIntercepter implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         startTime = System.currentTimeMillis();
         LOG.info("preHandle方法执行");
+        //throw new MyCustomException();
         return true;
     }
 

@@ -25,7 +25,7 @@ public class MyIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         startTime = System.currentTimeMillis();
-        LOG.info("preHandle方法执行");
+        LOG.info("preHandle方法执行"+request.getRequestURL());
         return true;
     }
 

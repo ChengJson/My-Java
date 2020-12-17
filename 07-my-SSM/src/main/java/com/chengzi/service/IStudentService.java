@@ -9,5 +9,10 @@ public interface IStudentService {
 
     void addStudent(Student student) throws IOException;
 
+    void deleteStudent(Integer id) throws IOException;
+
+    void updateStudnent(Student student) throws IOException;
+
     List<Student> getAllStudnet() throws IOException;
+
 }
