@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--shiro的过滤器工厂bean,和DelegatingFilterProxy配合使用-->
+   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+       <property name="securityManager" ref="defaultWebSecurityManager"/>
+       <!--登录url-->
+       <property name="loginUrl" value="login.jsp"/>
+       <!--未授权跳转-->
+       <property name="unauthorizedUrl" value="403.html"/>
+       <property name="filterChainDefinitions">
+           <value>
+               /login.jsp = anon
+               /subLogin = anon
+               /testCustomFilter = rolesOr["abc","def"]
+               /* authc
+
+
+           </value>
+       </property>
+       
+       <property name="filters">
+           <util:map>
+               <entry key = "rolesOr" value-ref="customFilter"/>
+           </util:map>
+       </property>
+   </bean>
+
+
+    <!--配置安全管理器-->
+    <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="defaultWebSecurityManager">
+        <property name="realm" ref="customRealm"/>
+        <property name="sessionManager" ref="defaultWebSessionManager"/>
+    </bean>
+
+    <!--配置自定义realm-->
+    <bean class="com.chengzi.shiro.spring.shiroconfig.realm.CustomRealm" id="customRealm">
+        <property name="credentialsMatcher" ref="hashedCredentialsMatcher"/>
+    </bean>
+
+    <!--配置加密-->
+    <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher" id="hashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"/>
+        <property name="hashIterations" value="1"/>
+    </bean>
+
+
+    <!--自定义shiro过滤器-->
+    <bean class="com.chengzi.shiro.spring.shiroconfig.filter.CustomFilter" id="customFilter"/>
+
+    <!--自定义会话管理-->
+    <bean class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager" id="defaultWebSessionManager">
+        <property name="sessionDAO" ref="redisSessionDao"/>
+    </bean>
+
+    <!--redis记录session-->
+    <bean class="com.chengzi.shiro.spring.shiroconfig.session.RedisSessionDao" id="redisSessionDao"/>
+</beans>

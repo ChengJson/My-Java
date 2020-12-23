@@ -9,7 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>13_02-my-Shiro-Spring</artifactId>
+    <artifactId>13_04-my-Shiro-JWT</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <description>shiro+jwt</description>
+
 
 </project>
