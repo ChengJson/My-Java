@@ -10,6 +10,7 @@
     <modules>
         <module>13_01-my-Shiro-Simple</module>
         <module>13_02-my-Shiro-Spring</module>
+        <module>13_03-my-Shiro-Spring-RedisSession</module>
     </modules>
     <packaging>pom</packaging>
 

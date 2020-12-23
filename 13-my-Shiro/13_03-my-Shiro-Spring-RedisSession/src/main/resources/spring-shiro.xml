@@ -37,6 +37,7 @@
     <!--配置安全管理器-->
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="defaultWebSecurityManager">
         <property name="realm" ref="customRealm"/>
+        <property name="sessionManager" ref="defaultWebSessionManager"/>
     </bean>
 
     <!--配置自定义realm-->
@@ -54,6 +55,11 @@
     <!--自定义shiro过滤器-->
     <bean class="com.chengzi.shiro.spring.shiroconfig.filter.CustomFilter" id="customFilter"/>
 
+    <!--自定义会话管理-->
+    <bean class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager" id="defaultWebSessionManager">
+        <property name="sessionDAO" ref="redisSessionDao"/>
+    </bean>
 
-
+    <!--redis记录session-->
+    <bean class="com.chengzi.shiro.spring.shiroconfig.session.RedisSessionDao" id="redisSessionDao"/>
 </beans>
