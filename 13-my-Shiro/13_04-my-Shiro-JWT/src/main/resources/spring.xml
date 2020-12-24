@@ -10,4 +10,5 @@
 
     <import resource="spring-shiro.xml"/>
     <import resource="classpath:spring-redis.xml"/>
+    <import resource="classpath:spring-jwt.xml"/>
 </beans>

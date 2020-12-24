@@ -83,4 +83,55 @@ public class JedisUtil {
             jedis.close();
         }
     }
+
+    public boolean exists(String key) {
+        Jedis jedis = getJedis();
+        try {
+            return jedis.exists(key);
+        } catch (Exception e) {
+            LOG.error(e.toString());
+            throw e;
+        } finally {
+            jedis.close();
+        }
+    }
+
+    public String get(String key) {
+
+        Jedis jedis = getJedis();
+        try {
+            return jedis.get(key);
+        } catch (Exception e) {
+            LOG.error(e.toString());
+            throw e;
+        } finally {
+            jedis.close();
+        }
+    }
+
+    public void set(String refreshTokenCacheKey, String currentTimeMillis, long l) {
+
+        Jedis jedis = getJedis();
+        try {
+            jedis.set(refreshTokenCacheKey,currentTimeMillis);
+            jedis.expire(refreshTokenCacheKey, (int) l);
+        } catch (Exception e) {
+            LOG.error(e.toString());
+            throw e;
+        } finally {
+            jedis.close();
+        }
+    }
+
+    public void delKey(String tokenKey) {
+        Jedis jedis = getJedis();
+        try {
+            jedis.del(tokenKey);
+        } catch (Exception e) {
+            LOG.error(e.toString());
+            throw e;
+        } finally {
+            jedis.close();
+        }
+    }
 }

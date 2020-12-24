@@ -1,69 +1,79 @@
 package com.chengzi.shiro.spring.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.util.StringUtils;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.chengzi.shiro.spring.shiroconfig.consts.SecurityConsts;
+import com.chengzi.shiro.spring.shiroconfig.jwt.JwtProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.time.Duration;
+import javax.annotation.PostConstruct;
 import java.util.Date;
 
-/**
- *Desc:
- *@author:chengli
- *@date:2020/12/23 17:46
- */
-public final class JwtUtil {
-    /**
-     * 这个秘钥是防止JWT被篡改的关键，随便写什么都好，但决不能泄露
-     */
-    private final static String secretKey = "whatever";
-    /**
-     * 过期时间目前设置成2天，这个配置随业务需求而定
-     */
-    private final static Duration expiration = Duration.ofHours(2);
+@Component
+public class JwtUtil {
 
-    /**
-     * 生成JWT
-     * @param userName 用户名
-     * @return JWT
-     */
-    public static String generate(String userName) {
-        // 过期时间
-        Date expiryDate = new Date(System.currentTimeMillis() + expiration.toMillis());
+    @Autowired
+    JwtProperties jwtProperties;
 
-        return Jwts.builder()
-                .setSubject(userName) // 将userName放进JWT
-                .setIssuedAt(new Date()) // 设置JWT签发时间
-                .setExpiration(expiryDate)  // 设置过期时间
-                .signWith(SignatureAlgorithm.HS512, secretKey) // 设置加密算法和秘钥
-                .compact();
+    @Autowired
+    private static JwtUtil jwtUtil;
+
+    @PostConstruct
+    public void init() {
+        jwtUtil = this;
+        jwtUtil.jwtProperties = this.jwtProperties;
     }
 
     /**
-     * 解析JWT
-     * @param token JWT字符串
-     * @return 解析成功返回Claims对象，解析失败返回null
+     * 校验token是否正确
+     * @param token
+     * @return
      */
-    public static Claims parse(String token) {
-        // 如果是空字符串直接返回null
-        if (StringUtils.isEmpty(token)) {
+    public static boolean verify(String token) {
+        String secret = getClaim(token, SecurityConsts.ACCOUNT) + jwtUtil.jwtProperties.getSecretKey();
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        JWTVerifier verifier = JWT.require(algorithm)
+                .build();
+        verifier.verify(token);
+        return true;
+    }
+
+    /**
+     * 获得Token中的信息无需secret解密也能获得
+     * @param token
+     * @param claim
+     * @return
+     */
+    public static String getClaim(String token, String claim) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim(claim).asString();
+        } catch (JWTDecodeException e) {
             return null;
         }
+    }
 
-        // 这个Claims对象包含了许多属性，比如签发时间、过期时间以及存放的数据等
-        Claims claims = null;
-        // 解析失败了会抛出异常，所以我们要捕捉一下。token过期、token非法都会导致解析失败
-        try {
-            claims = Jwts.parser()
-                    .setSigningKey(secretKey) // 设置秘钥
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (JwtException e) {
-            // 这里应该用日志输出，为了演示方便就直接打印了
-            System.err.println("解析失败！");
-        }
-        return claims;
+    /**
+     * 生成签名,n分钟后过期
+     * @param account
+     * @param currentTimeMillis
+     * @return
+     */
+    public static String sign(String account, String currentTimeMillis) {
+        // 帐号加JWT私钥加密
+        String secret = account + jwtUtil.jwtProperties.getSecretKey();
+        // 此处过期时间，单位：毫秒
+        Date date = new Date(System.currentTimeMillis() + jwtUtil.jwtProperties.getTokenExpireTime()*60*1000L);
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+
+        return JWT.create()
+                .withClaim(SecurityConsts.ACCOUNT, account)
+                .withClaim(SecurityConsts.CURRENT_TIME_MILLIS, currentTimeMillis)
+                .withExpiresAt(date)
+                .sign(algorithm);
     }
 }

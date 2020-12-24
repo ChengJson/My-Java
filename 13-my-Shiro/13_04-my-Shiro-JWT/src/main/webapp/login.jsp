@@ -20,7 +20,7 @@
 </head>
 <body>
 <%=basePath%>
-        <form action="subLogin" method="post">
+        <form action="login" method="post">
             用户名：<input type="text" name="username"value="zhangsan"><br>
             密  码：<input type="text" name="password" value="123">
             <input type="submit" value="提交">
