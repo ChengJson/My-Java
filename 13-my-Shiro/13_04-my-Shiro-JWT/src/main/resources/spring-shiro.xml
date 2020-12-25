@@ -18,8 +18,13 @@
         <property name="filterChainDefinitions">
             <value>
                 /login.jsp = anon
-                /subLogin = anon
+                /login = anon
+                <!--/123.jpg = anon-->
+                /images/* = anon
+                /logout = logoutFilter
+
                 /* = tokenFilter
+
 
                 <!--/* authc-->
             </value>
