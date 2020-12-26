@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fantaike.template.mapper.setting.SysAuthMenuMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.fantaike.template.domain.setting.SysAuthMenu" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="menuId" column="menu_id" jdbcType="BIGINT"/>
+        <result property="authId" column="auth_id" jdbcType="BIGINT"/>
+    </resultMap>
+    
+  <sql id="Base_Column_List" >
+        id,menu_id,auth_id 
+  </sql>
+
+    <resultMap type="com.fantaike.template.domain.setting.SysMenu" id="MenuResultMap">
+        <result property="menuId" column="menu_id" jdbcType="BIGINT"/>
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="perms" column="perms" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="createUsr" column="create_usr" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUsr" column="update_usr" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Menu_Column_List" >
+        menu.menu_id, menu.parent_id, menu.name, menu.url, menu.perms, menu.type, menu.icon, menu.order_num,
+        menu.status, menu.create_usr, menu.create_time, menu.update_usr, menu.update_time
+  </sql>
+
+    <select id="listMenuByAuthId" resultMap="MenuResultMap">
+        select
+        <include refid="Menu_Column_List" />
+        from sys_menu menu inner join sys_auth_menu authMenu on menu.menu_id = authMenu.menu_id
+        and authMenu.auth_id = #{authId} and menu.status = #{status}
+    </select>
+</mapper>

@@ -3,6 +3,7 @@ package com.chengzi.gulimall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.chengzi.gulimall.product.vo.SpuSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +19,11 @@ import com.chengzi.common.utils.R;
 
 
 /**
- * spu??Ϣ
+ * spu信息
  *
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 15:51:46
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-01 22:50:32
  */
 @RestController
 @RequestMapping("product/spuinfo")
@@ -36,7 +37,7 @@ public class SpuInfoController {
     @RequestMapping("/list")
     //@RequiresPermissions("product:spuinfo:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = spuInfoService.queryPage(params);
+        PageUtils page = spuInfoService.queryPageByCondition(params);
 
         return R.ok().put("page", page);
     }
@@ -58,8 +59,10 @@ public class SpuInfoController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:spuinfo:save")
-    public R save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+    public R save(@RequestBody SpuSaveVo vo){
+		//spuInfoService.save(spuInfo);
+
+        spuInfoService.saveSpuInfo(vo);
 
         return R.ok();
     }

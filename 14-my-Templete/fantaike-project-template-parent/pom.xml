@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.fantaike.template</groupId>
+    <artifactId>fantaike-project-template-parent</artifactId>
+    <version>1.0</version>
+    <name>parent</name>
+    <description>泛钛客后端模板项目</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>../fantaike-project-template-api</module>
+        <module>../fantaike-project-template-core</module>
+        <module>../fantaike-project-template-service</module>
+        <module>../fantaike-project-template-web</module>
+    </modules>
+    <properties>
+        <java.version>1.8</java.version>
+        <mybatis-spring-boot-starter.version>3.1.1</mybatis-spring-boot-starter.version>
+        <druid.version>1.1.6</druid.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <slf4j.version>1.7.21</slf4j.version>
+        <log4j.version>1.2.16</log4j.version>
+        <druid-spring-boot-starter.version>1.1.17</druid-spring-boot-starter.version>
+        <lombok.version>1.18.8</lombok.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <dubbo.version>2.7.1</dubbo.version>
+        <pagehelper.version>1.2.11</pagehelper.version>
+        <shiro.version>1.4.0</shiro.version>
+        <shiro-redis.version>3.2.2</shiro-redis.version>
+        <httpclient.version>4.5.5</httpclient.version>
+        <hutool.version>4.5.16</hutool.version>
+        <ip2region.version>1.7</ip2region.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.1.5.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Aapche Dubbo  -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-dependencies-bom</artifactId>
+                <version>${dubbo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                    <!--<exclusion>-->
+                        <!--<groupId>log4j</groupId>-->
+                        <!--<artifactId>log4j</artifactId>-->
+                    <!--</exclusion>-->
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

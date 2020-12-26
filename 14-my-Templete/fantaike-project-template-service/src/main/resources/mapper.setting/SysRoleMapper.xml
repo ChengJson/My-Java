@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fantaike.template.mapper.setting.SysRoleMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.fantaike.template.domain.setting.SysRole" id="BaseResultMap">
+        <result property="roleId" column="role_id" jdbcType="BIGINT"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="roleRmk" column="role_rmk" jdbcType="VARCHAR"/>
+        <result property="createUsr" column="create_usr" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUsr" column="update_usr" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+  <sql id="Base_Column_List" >
+        role_id,role_name,status,role_rmk,create_usr,create_time,update_usr,update_time 
+  </sql>
+</mapper>

@@ -8,11 +8,11 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * spu????ֵ
+ * spu属性值
  * 
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 15:51:46
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-01 21:08:49
  */
 @Data
 @TableName("pms_product_attr_value")
@@ -25,27 +25,27 @@ public class ProductAttrValueEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
-	 * ??Ʒid
+	 * 商品id
 	 */
 	private Long spuId;
 	/**
-	 * ????id
+	 * 属性id
 	 */
 	private Long attrId;
 	/**
-	 * ??????
+	 * 属性名
 	 */
 	private String attrName;
 	/**
-	 * ????ֵ
+	 * 属性值
 	 */
 	private String attrValue;
 	/**
-	 * ˳?
+	 * 顺序
 	 */
 	private Integer attrSort;
 	/**
-	 * ????չʾ???Ƿ?չʾ?ڽ????ϣ?0-?? 1-?ǡ?
+	 * 快速展示【是否展示在介绍上；0-否 1-是】
 	 */
 	private Integer quickShow;
 

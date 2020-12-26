@@ -2,22 +2,26 @@ package com.chengzi.gulimall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+
+
 /**
- * ??Ʒ???????
+ * 商品三级分类
  * 
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 15:51:46
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-01 21:08:48
  */
+
 @Data
 @TableName("pms_category")
 public class CategoryEntity implements Serializable {
@@ -37,19 +41,20 @@ public class CategoryEntity implements Serializable {
 	 */
 	private Long parentCid;
 	/**
-	 * 分类层级
+	 * 层级
 	 */
 	private Integer catLevel;
 	/**
-	 * 是否显示
+	 * 是否显示[0-不显示，1显示]
 	 */
+	@TableLogic(value = "1",delval = "0")
 	private Integer showStatus;
 	/**
 	 * 排序
 	 */
 	private Integer sort;
 	/**
-	 * 图标
+	 * 图标地址
 	 */
 	private String icon;
 	/**
@@ -64,5 +69,7 @@ public class CategoryEntity implements Serializable {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@TableField(exist=false)
 	private List<CategoryEntity> children;
+
+
 
 }

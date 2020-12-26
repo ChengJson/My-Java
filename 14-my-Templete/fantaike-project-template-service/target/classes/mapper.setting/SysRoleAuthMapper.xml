@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fantaike.template.mapper.setting.SysRoleAuthMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.fantaike.template.domain.setting.SysRoleAuth" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="roleId" column="role_id" jdbcType="BIGINT"/>
+        <result property="authId" column="auth_id" jdbcType="BIGINT"/>
+    </resultMap>
+    
+  <sql id="Base_Column_List" >
+        id, role_id, auth_id
+  </sql>
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.fantaike.template.domain.setting.SysAuth" id="AuthResultMap">
+        <result property="authId" column="auth_id" jdbcType="BIGINT"/>
+        <result property="authName" column="auth_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="createUsr" column="create_usr" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUsr" column="update_usr" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Auth_Column_List" >
+        auth.auth_id, auth.auth_name, auth.status, auth.create_usr, auth.create_time, auth.update_usr, auth.update_time
+    </sql>
+
+    <select id="listByRoleId" resultMap="AuthResultMap" >
+        select
+        <include refid="Auth_Column_List" />
+        from sys_auth auth inner join sys_role_auth roleAuth on auth.auth_id = roleAuth.auth_id
+        and roleAuth.role_id = #{roleId} and auth.status = #{status}
+    </select>
+</mapper>

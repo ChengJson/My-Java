@@ -7,11 +7,11 @@ import com.chengzi.gulimall.product.entity.CommentReplayEntity;
 import java.util.Map;
 
 /**
- * ??Ʒ???ۻظ???ϵ
+ * 商品评价回复关系
  *
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 15:51:46
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-01 21:08:48
  */
 public interface CommentReplayService extends IService<CommentReplayEntity> {
 

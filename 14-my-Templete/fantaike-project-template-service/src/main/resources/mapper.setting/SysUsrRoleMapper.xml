@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fantaike.template.mapper.setting.SysUsrRoleMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.fantaike.template.domain.setting.SysUsrRole" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="roleId" column="role_id" jdbcType="BIGINT"/>
+        <result property="usrId" column="usr_id" jdbcType="BIGINT"/>
+    </resultMap>
+    
+  <sql id="Base_Column_List" >
+        id,role_id,usr_id
+  </sql>
+
+    <resultMap type="com.fantaike.template.domain.setting.SysRole" id="RoleResultMap">
+        <result property="roleId" column="role_id" jdbcType="BIGINT"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="roleRmk" column="role_rmk" jdbcType="VARCHAR"/>
+        <result property="createUsr" column="create_usr" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUsr" column="update_usr" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Role_Column_List" >
+        role.role_id, role.role_name, role.status, role.role_rmk, role.create_usr, role.create_time, role.update_usr, role.update_time
+  </sql>
+
+    <resultMap type="com.fantaike.template.domain.setting.SysMenu" id="MenuResultMap">
+        <result property="menuId" column="menu_id" jdbcType="BIGINT"/>
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="perms" column="perms" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="createUsr" column="create_usr" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUsr" column="update_usr" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Menu_Column_List" >
+        menu.menu_id, menu.parent_id, menu.name, menu.url, menu.perms, menu.type, menu.icon, menu.order_num,
+        menu.status, menu.create_usr, menu.create_time, menu.update_usr, menu.update_time
+  </sql>
+
+    <select id="listRoleByUsrId" resultMap="RoleResultMap" >
+        select
+        <include refid="Role_Column_List" />
+        from sys_role role inner join sys_usr_role usrRole on role.role_id = usrRole.role_id
+        and usrRole.usr_id = #{usrId} and role.status = #{status}
+    </select>
+
+    <select id="listMenuByUsrId" resultMap="MenuResultMap" >
+       SELECT
+            DISTINCT <include refid="Menu_Column_List" />
+        FROM
+            sys_role role
+        INNER JOIN sys_usr_role usrRole ON role.role_id = usrRole.role_id
+        AND usrRole.usr_id = #{usrId}
+        AND role.STATUS = #{status}
+        INNER JOIN sys_role_auth roleAuth on roleAuth.role_id = role.role_id
+        INNER JOIN sys_auth auth on auth.auth_id = roleAuth.auth_id and auth.status = #{status}
+        INNER JOIN sys_auth_menu authMenu on authMenu.auth_id = auth.auth_id
+        INNER JOIN sys_menu menu on menu.menu_id = authMenu.menu_id and menu.status = #{status}
+    </select>
+</mapper>
