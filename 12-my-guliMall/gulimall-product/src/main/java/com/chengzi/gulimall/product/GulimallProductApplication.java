@@ -54,8 +54,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *  2）、使用@ExceptionHandler标注方法可以处理的异常。
  */
 //@EnableFeignClients(basePackages = "com.atguigu.gulimall.product.feign")
-//@EnableDiscoveryClient
-@MapperScan("com.chengzi.gulimall.product.dao")
+//@MapperScan("com.chengzi.gulimall.product.dao")
+@EnableDiscoveryClient
 @SpringBootApplication
 public class GulimallProductApplication {
 
