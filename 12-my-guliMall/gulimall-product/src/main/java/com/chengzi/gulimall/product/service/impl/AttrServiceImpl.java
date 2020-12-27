@@ -130,6 +130,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         return pageUtils;
     }
 
+    /**
+     * 修改属性信息时，要查找属性的所有信息，所属分类路径，分组信息等
+     * @param attrId
+     * @return
+     */
     @Override
     public AttrRespVo getAttrInfo(Long attrId) {
         AttrRespVo respVo = new AttrRespVo();

@@ -7,11 +7,11 @@ import com.chengzi.gulimall.coupon.entity.CouponSpuRelationEntity;
 import java.util.Map;
 
 /**
- * ?Ż?ȯ????Ʒ????
+ * 优惠券与产品关联
  *
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 17:20:22
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:40
  */
 public interface CouponSpuRelationService extends IService<CouponSpuRelationEntity> {
 

@@ -8,7 +8,8 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 品牌分类关联
+ * 品牌分类关联：一个品牌会属于多个分类，一一个分类属于多个品牌
+ * 这里设计了冗余字段 branName 和catelogName 避免多表关联
  * 
  * @author leifengyang
  * @email leifengyang@gmail.com

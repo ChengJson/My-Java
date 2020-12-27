@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>fantaike-project-template-web</artifactId>
-    <name>web</name>
+    <name>14-my-Templete-web</name>
     <description>后端模板项目web</description>
     <packaging>war</packaging>
 

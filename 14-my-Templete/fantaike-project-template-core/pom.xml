@@ -10,7 +10,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <name>core</name>
+    <name>14-my-Templete-core</name>
     <artifactId>fantaike-project-template-core</artifactId>
 
     <dependencies>

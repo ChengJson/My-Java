@@ -20,11 +20,11 @@ import com.chengzi.common.utils.R;
 
 
 /**
- * ?Ż?ȯ??Ϣ
+ * 优惠券信息
  *
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 17:20:22
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:40
  */
 @RefreshScope
 @RestController
@@ -44,6 +44,14 @@ public class CouponController {
 
         return R.ok().put("name",name).put("age",age);
     }
+
+    @RequestMapping("/member/list")
+    public R membercoupons(){
+        CouponEntity couponEntity = new CouponEntity();
+        couponEntity.setCouponName("满100减10");
+        return R.ok().put("coupons",Arrays.asList(couponEntity));
+    }
+
     /**
      * 列表
      */
@@ -54,12 +62,7 @@ public class CouponController {
 
         return R.ok().put("page", page);
     }
-    @RequestMapping("/member/list")
-    public R membercoupons(){
-        CouponEntity couponEntity = new CouponEntity();
-        couponEntity.setCouponName("满100减10");
-        return R.ok().put("coupons",Arrays.asList(couponEntity));
-    }
+
 
     /**
      * 信息

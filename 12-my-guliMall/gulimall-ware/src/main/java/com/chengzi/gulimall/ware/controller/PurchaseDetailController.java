@@ -3,7 +3,6 @@ package com.chengzi.gulimall.ware.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +20,9 @@ import com.chengzi.common.utils.R;
 /**
  * 
  *
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 17:52:09
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-11-17 13:50:10
  */
 @RestController
 @RequestMapping("ware/purchasedetail")

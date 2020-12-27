@@ -55,7 +55,7 @@ public class SpuInfoController {
     }
 
     /**
-     * 保存
+     * 录入商品的最终保存
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:spuinfo:save")

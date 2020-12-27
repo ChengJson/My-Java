@@ -32,6 +32,7 @@ public class CategoryBrandRelationController {
     private CategoryBrandRelationService categoryBrandRelationService;
 
     /**
+     *
      * 获取当前品牌关联的所有分类列表
      */
     @GetMapping("/catelog/list")
@@ -46,6 +47,8 @@ public class CategoryBrandRelationController {
 
     /**
      *  /product/categorybrandrelation/brands/list
+     *
+     *  新增商品
      *
      *  1、Controller：处理请求，接受和校验数据
      *  2、Service接受controller传来的数据，进行业务处理

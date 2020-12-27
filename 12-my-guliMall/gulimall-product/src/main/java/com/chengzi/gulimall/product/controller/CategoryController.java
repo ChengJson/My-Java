@@ -85,6 +85,7 @@ public class CategoryController {
     //@RequiresPermissions("product:category:update")
     public R update(@RequestBody CategoryEntity category){
         //categoryService.updateById(category);
+        //品牌和分类关关联表有冗余字段，更新完分类表，需要吧关联表中的数据也级联更新。
 		categoryService.updateCascade(category);
         return R.ok();
     }

@@ -7,11 +7,11 @@ import com.chengzi.gulimall.coupon.entity.SeckillSkuNoticeEntity;
 import java.util.Map;
 
 /**
- * ??ɱ??Ʒ֪ͨ???
+ * 秒杀商品通知订阅
  *
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 17:20:22
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:39
  */
 public interface SeckillSkuNoticeService extends IService<SeckillSkuNoticeEntity> {
 

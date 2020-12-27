@@ -43,6 +43,11 @@ public class AttrGroupController {
     @Autowired
     AttrAttrgroupRelationService relationService;
 
+    /**
+     * 新增关联关系
+     * @param vos
+     * @return
+     */
     ///product/attrgroup/attr/relation
     @PostMapping("/attr/relation")
     public R addRelation(@RequestBody List<AttrGroupRelationVo> vos){
@@ -51,6 +56,11 @@ public class AttrGroupController {
         return R.ok();
     }
 
+    /**
+     * 新增商品 添加属性时调用这个接口
+     * @param catelogId
+     * @return
+     */
     ///product/attrgroup/{catelogId}/withattr
     @GetMapping("/{catelogId}/withattr")
     public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
@@ -61,7 +71,11 @@ public class AttrGroupController {
        return R.ok().put("data",vos);
     }
 
-
+    /**
+     * 查询分组关联的属性
+     * @param attrgroupId
+     * @return
+     */
     ///product/attrgroup/{attrgroupId}/attr/relation
     @GetMapping("/{attrgroupId}/attr/relation")
     public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
@@ -69,6 +83,12 @@ public class AttrGroupController {
         return R.ok().put("data",entities);
     }
 
+    /**
+     * 查询分组没有关联的属性
+     * @param attrgroupId
+     * @param params
+     * @return
+     */
     ///product/attrgroup/{attrgroupId}/noattr/relation
     @GetMapping("/{attrgroupId}/noattr/relation")
     public R attrNoRelation(@PathVariable("attrgroupId") Long attrgroupId,

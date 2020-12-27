@@ -3,7 +3,6 @@ package com.chengzi.gulimall.coupon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,11 +18,11 @@ import com.chengzi.common.utils.R;
 
 
 /**
- * ?Ż?ȯ??ȡ??ʷ??¼
+ * 优惠券领取历史记录
  *
- * @author chengli
- * @email 570197298@qq.com@gmail.com
- * @date 2020-12-20 17:20:22
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:40
  */
 @RestController
 @RequestMapping("coupon/couponhistory")
