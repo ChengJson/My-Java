@@ -1,7 +1,7 @@
-package com.chengzi.chengzi.mapper;
+package com.chengzi.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.chengzi.chengzi.beans.User;
+import com.chengzi.beans.User;
 
 /**
  *Desc:

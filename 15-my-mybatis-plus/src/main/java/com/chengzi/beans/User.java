@@ -1,4 +1,4 @@
-package com.chengzi.chengzi.beans;
+package com.chengzi.beans;
 
 import lombok.Data;
 
