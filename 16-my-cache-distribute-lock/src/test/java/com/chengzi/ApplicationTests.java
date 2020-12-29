@@ -24,4 +24,7 @@ public class ApplicationTests {
 		List<User> userList = userMapper.selectList(null);
 		userList.forEach(System.out::println);
 	}
+
+
+
 }
