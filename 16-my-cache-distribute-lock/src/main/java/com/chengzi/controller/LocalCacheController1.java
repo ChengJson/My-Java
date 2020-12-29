@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.chengzi.beans.User;
 import com.chengzi.mapper.UserMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -20,6 +22,8 @@ import java.util.Map;
 
 @RestController
 public class LocalCacheController1 {
+
+    private static Logger LOG = LoggerFactory.getLogger(LocalCacheController1.class);
 
     @Autowired
     RedisTemplate<String,String> redisTemplate;
@@ -34,7 +38,7 @@ public class LocalCacheController1 {
      * 4、redisTemplete是spirng再次封装的RedisAutoConfiguration ，import导入的配置类
      * @return
      */
-    @RequestMapping("/local")
+    @RequestMapping("/local1")
     public  List<Map<String, Object>> local(){
 
         String all_user = redisTemplate.opsForValue().get("all_user");
@@ -54,10 +58,19 @@ public class LocalCacheController1 {
      * @return
      */
     private  List<Map<String, Object>> getFromLocal(){
+        LOG.info("从数据库中查询数据");
         // 根据 Wrapper 条件，查询全部记录
         List<Map<String, Object>> maps = userMapper.selectMaps(new QueryWrapper<User>());
         return maps;
     }
+
+    /**
+     *
+     *
+     * 结论：使用jmeter 200个并发，还是有20个线程访问数据库
+     *
+     *
+     */
 
 
 }

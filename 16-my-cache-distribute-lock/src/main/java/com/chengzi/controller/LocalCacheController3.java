@@ -18,12 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 加锁解决缓存击穿问题
+ * 原因：释放了锁但是还没有放入redis，
+ * 解决：放入redis的操作也放在同步代码块中
  *
  * 存在问题 还是会多次查询数据库
  */
 @RestController
-public class LocalCacheController2 {
+public class LocalCacheController3 {
 
     private static Logger LOG = LoggerFactory.getLogger(LocalCacheController1.class);
 
@@ -37,7 +38,7 @@ public class LocalCacheController2 {
      *
      * @return
      */
-    @RequestMapping("/local2")
+    @RequestMapping("/local3")
     public  List<Map<String, Object>> local(){
 
         String all_user = redisTemplate.opsForValue().get("all_user");
@@ -46,8 +47,6 @@ public class LocalCacheController2 {
             LOG.info("缓存中没有，从数据库中查询数据");
 
             List<Map<String, Object>> fromLocal = getFromLocal();
-            String s = JSON.toJSONString(fromLocal);
-            redisTemplate.opsForValue().set("all_user",s);
             return fromLocal;
         }
         List<Map<String, Object>> maps = JSONObject.parseObject(all_user, new TypeReference<List<Map<String, Object>>>() {});
@@ -70,6 +69,12 @@ public class LocalCacheController2 {
             LOG.info("从数据库中查询数据");
             // 根据 Wrapper 条件，查询全部记录
             List<Map<String, Object>> maps = userMapper.selectMaps(new QueryWrapper<User>());
+
+
+            //将值放入redis中
+            String s = JSON.toJSONString(maps);
+            redisTemplate.opsForValue().set("all_user",s);
+
             return maps;
         }
 

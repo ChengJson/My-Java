@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = Application.class)
 public class LocalCacheControllerTest {
     @Autowired
-    private LocalCacheController LocalCacheController;
+    private LocalCacheController1 LocalCacheController;
 
     @Test
     public void testSelect() {
