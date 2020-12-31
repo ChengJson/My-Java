@@ -1,12 +1,9 @@
-package com.chengzi.controller;
+package com.chengzi.controller.jvmLock;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
-import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.chengzi.beans.User;
 import com.chengzi.mapper.UserMapper;
 import org.slf4j.Logger;

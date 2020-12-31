@@ -1,10 +1,11 @@
-package com.chengzi.controller;
+package com.chengzi.controller.redisLock;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chengzi.beans.User;
+import com.chengzi.controller.jvmLock.LocalCacheController1;
 import com.chengzi.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +21,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
- * 分布式锁的演进2：
+ * 分布式锁的演进1：
  *
- * 原因：设置过期时间之前系统挂掉，即设置锁和设置过期时间不是原子操作
+ * 问题：redis占好了位，业务异常或者系统挂掉，导致没有释放锁，造成死锁
  * 解决：设置锁的自动过期，自动释放锁
  *
  */
 @RestController
-public class LocalCacheController7 {
+public class LocalCacheController5 {
 
     private static Logger LOG = LoggerFactory.getLogger(LocalCacheController1.class);
 
@@ -41,7 +42,7 @@ public class LocalCacheController7 {
      *
      * @return
      */
-    @RequestMapping("/local7")
+    @RequestMapping("/local5")
     public  List<Map<String, Object>> local(){
 
         String all_user = redisTemplate.opsForValue().get("all_user");
@@ -53,6 +54,7 @@ public class LocalCacheController7 {
             return fromLocal;
         }
         List<Map<String, Object>> maps = JSONObject.parseObject(all_user, new TypeReference<List<Map<String, Object>>>() {});
+        LOG.info("从缓存中获得数据，直接返回");
         return maps;
     }
 
@@ -63,15 +65,15 @@ public class LocalCacheController7 {
     private  List<Map<String, Object>> getFromLocalWithRedisLock(){
 
         //占分布式锁，去redis占坑
-
-        /*********************/
-        /***原子操作EX，NX*****/
-        /*********************/
-        Boolean success = redisTemplate.opsForValue().setIfAbsent("lock", "i_am_distribute_key",30, TimeUnit.SECONDS);
+        Boolean success = redisTemplate.opsForValue().setIfAbsent("lock", "i_am_distribute_key");
         if (success) {
 
+            /****************/
+            /***设置过期时间**/
+            /***************/
 
-            //redisTemplate.expire("lock",30, TimeUnit.SECONDS);
+            redisTemplate.expire("lock",30, TimeUnit.SECONDS);
+
 
             //加锁成功，执行业务
             List<Map<String, Object>> maps = getFromDbAndCache();

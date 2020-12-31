@@ -4,6 +4,7 @@ import com.chengzi.beans.Student;
 import com.chengzi.dao.IStudentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +29,11 @@ public class StudentServiceImpl implements IStudentService {
      * @throws IOException
      */
     @Override
+    @Transactional
     public void addStudent(Student student) throws IOException {
+
         studentDao.insertStudent(student);
+        int i = 1 / 0;
     }
 
 

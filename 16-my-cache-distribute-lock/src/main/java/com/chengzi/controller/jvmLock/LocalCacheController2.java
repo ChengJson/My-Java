@@ -1,4 +1,4 @@
-package com.chengzi.controller;
+package com.chengzi.controller.jvmLock;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -21,6 +21,9 @@ import java.util.Map;
  * 加锁解决缓存击穿问题
  *
  * 存在问题 还是会多次查询数据库
+ *
+ * 实际测试确实会查多次库
+ *
  */
 @RestController
 public class LocalCacheController2 {
@@ -51,6 +54,7 @@ public class LocalCacheController2 {
             return fromLocal;
         }
         List<Map<String, Object>> maps = JSONObject.parseObject(all_user, new TypeReference<List<Map<String, Object>>>() {});
+        LOG.info("从缓存中获得数据，直接返回");
         return maps;
     }
 
@@ -60,7 +64,7 @@ public class LocalCacheController2 {
      */
     private  List<Map<String, Object>> getFromLocal(){
         synchronized (this) {
-            //拿到锁对象后还要再次判断缓存是否存在，否则别的线程拿到锁之后再次
+            //拿到锁对象后还要再次判断缓存是否存在
             String all_user = redisTemplate.opsForValue().get("all_user");
             if (!StringUtils.isEmpty(all_user)) {
                 List<Map<String, Object>> maps = JSONObject.parseObject(all_user, new TypeReference<List<Map<String, Object>>>() {});

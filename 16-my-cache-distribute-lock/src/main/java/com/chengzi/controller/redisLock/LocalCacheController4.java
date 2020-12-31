@@ -1,10 +1,11 @@
-package com.chengzi.controller;
+package com.chengzi.controller.redisLock;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chengzi.beans.User;
+import com.chengzi.controller.jvmLock.LocalCacheController1;
 import com.chengzi.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,18 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
- *
- * 分布式锁的演进1：
- *
- * 原因：redis占好了位，业务异常或者系统挂掉，导致没有释放锁，造成死锁
- * 解决：设置锁的自动过期，自动释放锁
+ * 问题：分布式环境中会存在问题
+ * 解决：使用分布式锁
+ * 产生问题：处理业务系统挂掉 没有释放锁 其他线程一直等下去死锁
  *
  */
 @RestController
-public class LocalCacheController5 {
+public class LocalCacheController4 {
 
     private static Logger LOG = LoggerFactory.getLogger(LocalCacheController1.class);
 
@@ -41,7 +39,7 @@ public class LocalCacheController5 {
      *
      * @return
      */
-    @RequestMapping("/local5")
+    @RequestMapping("/local4")
     public  List<Map<String, Object>> local(){
 
         String all_user = redisTemplate.opsForValue().get("all_user");
@@ -53,6 +51,8 @@ public class LocalCacheController5 {
             return fromLocal;
         }
         List<Map<String, Object>> maps = JSONObject.parseObject(all_user, new TypeReference<List<Map<String, Object>>>() {});
+
+        LOG.info("从缓存中获得数据，直接返回");
         return maps;
     }
 
@@ -65,14 +65,6 @@ public class LocalCacheController5 {
         //占分布式锁，去redis占坑
         Boolean success = redisTemplate.opsForValue().setIfAbsent("lock", "i_am_distribute_key");
         if (success) {
-
-            /****************/
-            /***设置过期时间**/
-            /***************/
-
-            redisTemplate.expire("lock",30, TimeUnit.SECONDS);
-
-
             //加锁成功，执行业务
             List<Map<String, Object>> maps = getFromDbAndCache();
             //释放锁

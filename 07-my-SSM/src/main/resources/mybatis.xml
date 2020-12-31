@@ -4,8 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="jdbc.properties"></properties>
+
+    <!--&lt;!&ndash;配置全局设置&ndash;&gt;-->
+    <!--<settings>-->
+        <!--&lt;!&ndash;启用日志，并指定日志实现方式&ndash;&gt;-->
+        <!--<setting name="logImpl" value="SLF4J"/>-->
+
+        <!--&lt;!&ndash;启用主键生成策略&ndash;&gt;-->
+        <!--<setting name="useGeneratedKeys" value="true"/>-->
+
+        <!--&lt;!&ndash;配置启用下划线转驼峰的映射&ndash;&gt;-->
+        <!--<setting name="mapUnderscoreToCamelCase" value="true"/>-->
+
+        <!--&lt;!&ndash;启用二级缓存&ndash;&gt;-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+    <!--</settings>-->
+
+
     <settings>
-        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--启用日志，并指定日志实现方式-->
+        <setting name="logImpl" value="SLF4J"/>
+        <!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
     </settings>
     <!--配置运行环境-->
     <environments default="development">
