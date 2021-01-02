@@ -5,6 +5,7 @@ import com.chengzi.mapper.UserMapper;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
+import org.redisson.client.RedisClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,6 +18,14 @@ public class ApplicationTests {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	RedisClient redisClient;
+
+	@Test
+	public void testRedisson(){
+		System.out.println(redisClient);
+	}
 
 	@Test
 	public void testSelect() {

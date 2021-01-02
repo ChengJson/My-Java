@@ -8,5 +8,6 @@ spring:
     username: root
     password: test
   redis:
-    host: localhost
+    #host: localhost
+    host: 172.16.200.208
     port: 6379

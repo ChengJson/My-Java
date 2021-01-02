@@ -6,3 +6,8 @@ docker run -p 6379:6379 --name redis -v /mydata/redis/data:/data -v /mydata/redi
 
 #设置自动启动镜像
 docker update redis --restart=always
+
+#启动nginx
+docker run -p 80:80 --name nginx -v /mydata/nginx/html:/usr/share/nginx/html  -v /mydata/nginx/logs:/var/log/nginx -v /mydata/nginx/conf:/etc/nginx -d nginx:1.10
+
+docker update nginx --restart=always

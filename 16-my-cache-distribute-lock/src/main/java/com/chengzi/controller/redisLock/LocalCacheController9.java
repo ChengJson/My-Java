@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  *
  * 删除锁不是原子操作，查到了自己的锁，但是返回途中已经过期了，这样还是把别人的锁删了，使用lua脚本删除
  *
- *
+ *  测试发现还是锁不住
  *
  */
 @RestController
