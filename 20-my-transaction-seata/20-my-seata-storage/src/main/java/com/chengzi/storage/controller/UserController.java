@@ -1,7 +1,7 @@
-package com.chengzi.controller;
+package com.chengzi.storage.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.chengzi.mapper.UserMapper;
+import com.chengzi.storage.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class TestController {
+public class UserController {
 
 
     @Autowired

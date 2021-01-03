@@ -1,0 +1,33 @@
+
+
+
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    schema: classpath:db/schema-h2.sql
+    data: classpath:db/data-h2.sql
+    url: jdbc:h2:mem:test
+    username: root
+    password: test
+
+logging:
+  level:
+    com.chengzi: debug
+server:
+  port: 8084
+
+
+# dubbo Config
+dubbo:
+  application:
+    id: storage
+    name: storage
+  protocol:
+    port: 20885
+  provider:
+    timeout: 600000
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  scan:
+    basePackages: com.chengzi

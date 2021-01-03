@@ -4,9 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <groupId>com.chengzi</groupId>
     <artifactId>20-my-transaction-seata</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>20-my-seata-api</module>
+        <module>20-my-seata-order</module>
+        <module>20-my-seata-storage</module>
+    </modules>
 
     <packaging>pom</packaging>
     <description>分布式事务框架seata实践</description>
