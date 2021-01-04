@@ -1,9 +1,12 @@
 package com.chengzi.service;
 
+import com.chengzi.dto.OrderDTO;
+import com.chengzi.response.ObjectResponse;
+
 public interface OrderService {
 
     /**
      * 创建订单
      */
-    int create(String userId, String commodityCode, int orderCount);
+    ObjectResponse<OrderDTO> createOrder(OrderDTO orderDTO);
 }

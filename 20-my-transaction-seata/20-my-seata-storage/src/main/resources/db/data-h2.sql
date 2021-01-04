@@ -13,5 +13,4 @@ INSERT INTO user (id, name, age, email) VALUES
 DELETE FROM storage_tbl;
 
 INSERT INTO storage_tbl (id, commodity_code, count) VALUES
-(1, '1号商品', 100),
-(2, '2号商品', 200);
+(1, '1号商品', 100);

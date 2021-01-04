@@ -1,6 +1,7 @@
 package com.chengzi.storage.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.chengzi.dto.BusinessDTO;
 import com.chengzi.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +28,9 @@ public class BussinessController {
      * @return
      */
     @RequestMapping("/testseata")
-    public Object testseata(){
-        businessService.purchase("1","",123);
+    public Object testseata(BusinessDTO businessDTO){
+
+        businessService.purchase(businessDTO);
         return "ok";
     }
 
