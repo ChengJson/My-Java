@@ -91,9 +91,13 @@ public class seataConfig {
         return factoryBean.getObject();
     }
 
+    /**
+     * init global transaction scanner
+     *
+     * @Return: GlobalTransactionScanner
+     */
     @Bean
     public GlobalTransactionScanner globalTransactionScanner(){
-        return new GlobalTransactionScanner("account-gts-seata-example", "my_test_tx_group");
+        return new GlobalTransactionScanner("dubbo-gts-seata-example", "my_test_tx_group");
     }
-
 }

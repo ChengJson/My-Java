@@ -2,6 +2,7 @@ package com.chengzi.account.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import io.seata.rm.datasource.DataSourceProxy;
+import io.seata.spring.annotation.GlobalTransactionScanner;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
@@ -91,7 +92,15 @@ public class seataConfig {
         return factoryBean.getObject();
     }
 
-
+    /**
+     * init global transaction scanner
+     *
+     * @Return: GlobalTransactionScanner
+     */
+    @Bean
+    public GlobalTransactionScanner globalTransactionScanner(){
+        return new GlobalTransactionScanner("order-gts-seata-example", "my_test_tx_group");
+    }
 
 
 }
