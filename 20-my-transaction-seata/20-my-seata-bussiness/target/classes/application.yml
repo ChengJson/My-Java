@@ -3,6 +3,8 @@
 
 # DataSource Config
 spring:
+  application:
+    name: bussiness
 #  datasource:
 #    driver-class-name: org.h2.Driver
 #    schema: classpath:db/schema-h2.sql

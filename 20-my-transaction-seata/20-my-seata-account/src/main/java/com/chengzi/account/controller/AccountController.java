@@ -2,6 +2,9 @@ package com.chengzi.account.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chengzi.account.mapper.AccountMapper;
+import com.chengzi.dto.AccountDTO;
+import com.chengzi.service.AccountService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +16,15 @@ import java.util.Map;
 @RestController
 public class AccountController {
 
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private AccountMapper mapper;
 
     @RequestMapping("/getAllAccount")
     public Object getAllAccount(){
-        List<Map<String, Object>> maps = mapper.selectMaps(new QueryWrapper<>());
+        List<Map<String, Object>> maps =accountService.getAllAccount();
         return maps;
     }
 
@@ -38,5 +43,16 @@ public class AccountController {
         List<Map<String, Object>> maps = mapper.selectMaps(new QueryWrapper<>());
         return maps;
     }
+    @RequestMapping("/decreaseAccount")
+    @Transactional
+    public Object decreaseAccount(){
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setAmount(12);
+        accountDTO.setUserId("zhangsan");
+        accountService.decreaseAccount(accountDTO);
+        List<Map<String, Object>> maps = mapper.selectMaps(new QueryWrapper<>());
+        return maps;
+    }
+
 
 }

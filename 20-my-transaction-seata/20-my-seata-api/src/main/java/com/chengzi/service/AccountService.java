@@ -1,9 +1,14 @@
 package com.chengzi.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.chengzi.domain.Account;
 import com.chengzi.dto.AccountDTO;
 import com.chengzi.response.ObjectResponse;
 
-public interface AccountService {
+import java.util.List;
+import java.util.Map;
+
+public interface AccountService extends IService<Account> {
 
 
     /**
@@ -13,4 +18,5 @@ public interface AccountService {
 
     void testGlobalLock();
 
+    List<Map<String, Object>> getAllAccount();
 }

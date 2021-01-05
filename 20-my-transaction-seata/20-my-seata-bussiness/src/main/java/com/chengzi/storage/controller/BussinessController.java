@@ -1,21 +1,38 @@
 package com.chengzi.storage.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
+import com.chengzi.dto.OrderDTO;
+import com.chengzi.response.ObjectResponse;
+import org.apache.dubbo.config.annotation.Reference;
 import com.chengzi.dto.BusinessDTO;
+import com.chengzi.service.AccountService;
 import com.chengzi.service.BusinessService;
+import com.chengzi.service.OrderService;
+import com.chengzi.service.StorageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.stereotype.Controller;
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 public class BussinessController {
     @Autowired
     BusinessService businessService;
+
+    @Reference
+    AccountService accountService;
+
+    @Reference
+    StorageService storageService;
+
+    @Reference
+    OrderService orderService;
 
     /**
      *
@@ -27,11 +44,25 @@ public class BussinessController {
      * 测试seata
      * @return
      */
+    @ResponseBody
     @RequestMapping("/testseata")
     public Object testseata(BusinessDTO businessDTO){
 
-        businessService.purchase(businessDTO);
-        return "ok";
+        ObjectResponse<OrderDTO> purchase = businessService.purchase(businessDTO);
+        return purchase;
+    }
+
+    @RequestMapping("/getAllData")
+    public Object getAllData(Model model){
+
+        List<Map<String, Object>> allOrder = orderService.getAllOrder();
+        List<Map<String, Object>> allAccount = accountService.getAllAccount();
+        List<Map<String, Object>> allStorage = storageService.getAllStorage();
+
+        model.addAttribute("allOrder",allOrder);
+        model.addAttribute("allAccount",allAccount);
+        model.addAttribute("allStorage",allStorage);
+        return "list";
     }
 
 

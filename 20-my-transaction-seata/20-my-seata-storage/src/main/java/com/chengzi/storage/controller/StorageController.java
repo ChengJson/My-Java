@@ -1,6 +1,8 @@
 package com.chengzi.storage.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.chengzi.dto.CommodityDTO;
+import com.chengzi.service.StorageService;
 import com.chengzi.storage.mapper.StorageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +19,12 @@ public class StorageController {
     @Autowired
     private StorageMapper mapper;
 
+    @Autowired
+    private StorageService storageService;
+
     @RequestMapping("/getAllStorage")
     public Object getAllStorage(){
-        List<Map<String, Object>> maps = mapper.selectMaps(new QueryWrapper<>());
+        List<Map<String, Object>> maps = storageService.getAllStorage();
         return maps;
     }
 
@@ -39,4 +44,15 @@ public class StorageController {
         return maps;
     }
 
+
+    @RequestMapping("/decreaseStorage")
+    @Transactional
+    public Object decreaseStorage(){
+        CommodityDTO commodityDTO = new CommodityDTO();
+        commodityDTO.setCommodityCode("C201901140001");
+        commodityDTO.setCount(50);
+        storageService.decreaseStorage(commodityDTO);
+        List<Map<String, Object>> maps = mapper.selectMaps(new QueryWrapper<>());
+        return maps;
+    }
 }

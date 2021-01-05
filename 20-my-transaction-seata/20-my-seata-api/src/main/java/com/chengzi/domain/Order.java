@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @TableName("order_tbl")
 public class Order {
-    private Integer id;
+    private String id;
     private String userId;
     private String  commodityCode;
     private Integer count;

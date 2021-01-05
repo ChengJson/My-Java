@@ -21,7 +21,7 @@ public class BusinessDTO implements Serializable {
 
     private Integer count;
 
-    private BigDecimal amount;
+    private Integer amount;
 
     public String getUserId() {
         return userId;
@@ -55,11 +55,11 @@ public class BusinessDTO implements Serializable {
         this.count = count;
     }
 
-    public BigDecimal getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 }

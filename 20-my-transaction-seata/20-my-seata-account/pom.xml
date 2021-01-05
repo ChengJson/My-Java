@@ -45,6 +45,24 @@
                 </configuration>
             </plugin>
         </plugins>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--&lt;!&ndash;src/main/webapp/下的文件编译到META-INF/resources目录下&ndash;&gt;-->
+                <!--<directory>src/main/webapp</directory>-->
+                <!--&lt;!&ndash;springboot指定前端资源编译到META-INF/resourcesx才能运行&ndash;&gt;-->
+                <!--<targetPath>META-INF/resources</targetPath>-->
+                <!--<includes>-->
+                    <!--<include>**/*.*</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+            <!--<resource>-->
+                <!--&lt;!&ndash;mybatis需要把xml文件编译到class下&ndash;&gt;-->
+                <!--<directory>src/main/java</directory>-->
+                <!--<includes>-->
+                    <!--<include>**/*.xml</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+        <!--</resources>-->
     </build>
 
 </project>

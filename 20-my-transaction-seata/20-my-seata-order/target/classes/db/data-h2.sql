@@ -12,6 +12,6 @@ INSERT INTO user (id, name, age, email) VALUES
 
 DELETE FROM order_tbl;
 
-INSERT INTO order_tbl (id,user_id ,commodity_code, count,money) VALUES
-(1, 'zhangsan', '1号商品',2,100),
-(2, 'lisi', '2号商品',1,200);
+INSERT INTO order_tbl (user_id ,commodity_code, count,money) VALUES
+( 'zhangsan', '1号商品',2,100),
+( 'lisi', '2号商品',1,200);

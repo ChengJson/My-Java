@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>分布式事务seata示例程序</title>
+</head>
+<body>
+<h1>分布式事务seata示例程序</h1>
+<u1>
+
+    <h2>订单数据</h2>
+    <li th:each="order:${allOrder}">订单:[[${order}]]</li>
+
+    <h2>账户数据</h2>
+    <li th:each="account:${allAccount}">账户:[[${account}]]</li>
+
+    <h2>库存数据</h2>
+    <li th:each="storage:${allStorage}">库存:[[${storage}]]</li>
+</u1>
+<u1>
+    <a href="/testseata"></a>
+</u1>
+
+
+</body>
+</html>
