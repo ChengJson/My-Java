@@ -123,6 +123,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
+        HttpServletRequest  ac =(HttpServletRequest)request;
+        System.out.println(ac.getRequestURL());
+        System.out.println();
         if (isLoginAttempt(request, response)) {
             try {
                 this.executeLogin(request, response);

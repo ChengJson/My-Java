@@ -21,8 +21,6 @@
                /subLogin = anon
                /testCustomFilter = rolesOr["abc","def"]
                /* authc
-
-
            </value>
        </property>
        

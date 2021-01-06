@@ -35,4 +35,9 @@ public class CustomFilter extends AuthorizationFilter {
         }
         return false;
     }
+
+    @Override
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws IOException {
+        return true;
+    }
 }

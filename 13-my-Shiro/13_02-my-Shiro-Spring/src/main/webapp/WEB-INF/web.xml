@@ -10,6 +10,7 @@
         1、initFilter: DelegatingFilterProxy根据targetBeanName从Spring 容器中获取被注入到Spring 容器的Filter实现类，在DelegatingFilterProxy配置时一般需要配置属性targetBeanName
         2、doFilter: 使用Spring容器中的bean执行真正的过滤操作
         3、shiro这里需要配置这个过滤器 是需要把shiro的过滤器在初始化时从spring容器中拿过来，执行时，通过bean来执行真正的过滤
+        4、自动到spring容器中查找名字为shirofilter的bean并把所有的filter操作委托给它，后边只需要将shirofilter放到spring容器中
     -->
     <filter>
         <filter-name>shiroFilter</filter-name>

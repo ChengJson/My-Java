@@ -93,9 +93,9 @@ public class JwtController {
         //更新RefreshToken缓存的时间戳
         String refreshTokenKey= SecurityConsts.PREFIX_SHIRO_REFRESH_TOKEN + account;
         if (cacheClient.exists(refreshTokenKey)) {
-            cacheClient.set(refreshTokenKey, currentTimeMillis, jwtProperties.getRefreshTokenExpireTime()*60*60l);
+            cacheClient.set(refreshTokenKey, currentTimeMillis, jwtProperties.getRefreshTokenExpireTime());
         }else{
-            cacheClient.set(refreshTokenKey, currentTimeMillis, jwtProperties.getRefreshTokenExpireTime()*60*60l);
+            cacheClient.set(refreshTokenKey, currentTimeMillis, jwtProperties.getRefreshTokenExpireTime());
         }
 
         //生成token

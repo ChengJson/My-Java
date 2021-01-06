@@ -18,6 +18,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /login.jsp = anon
+                /index.jsp = anon
                 /login = anon
                 <!--/123.jpg = anon-->
                 /images/* = anon

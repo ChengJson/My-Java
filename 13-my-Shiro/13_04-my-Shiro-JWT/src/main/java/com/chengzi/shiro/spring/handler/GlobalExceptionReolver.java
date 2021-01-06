@@ -2,6 +2,7 @@ package com.chengzi.shiro.spring.handler;
 
 import com.chengzi.shiro.spring.exception.MyCustomException;
 import org.apache.shiro.ShiroException;
+import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,4 +38,14 @@ public class GlobalExceptionReolver {
         modelAndView.setViewName("myException");
         return modelAndView;
     }
+
+    @ExceptionHandler(value = AuthenticationException.class)
+    public ModelAndView ShiroException(AuthenticationException ex){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("msg","Shiro Exception occur.."+ex.getMessage());
+        modelAndView.setViewName("myException");
+        return modelAndView;
+    }
+
+
 }

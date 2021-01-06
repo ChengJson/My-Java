@@ -36,8 +36,7 @@ public class JwtUtil {
     public static boolean verify(String token) {
         String secret = getClaim(token, SecurityConsts.ACCOUNT) + jwtUtil.jwtProperties.getSecretKey();
         Algorithm algorithm = Algorithm.HMAC256(secret);
-        JWTVerifier verifier = JWT.require(algorithm)
-                .build();
+        JWTVerifier verifier = JWT.require(algorithm).build();
         verifier.verify(token);
         return true;
     }
