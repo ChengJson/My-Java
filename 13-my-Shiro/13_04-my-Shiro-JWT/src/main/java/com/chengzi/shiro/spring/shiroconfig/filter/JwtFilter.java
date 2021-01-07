@@ -50,69 +50,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         return authorization != null;
     }
 
-    /**
-     * 登录验证
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    @Override
-    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String authorization = httpServletRequest.getHeader(SecurityConsts.REQUEST_AUTH_HEADER);
-
-        JwtToken token = new JwtToken(authorization);
-        // 提交给realm进行登入，如果错误他会抛出异常并被捕获
-        getSubject(request, response).login(token);
-
-        // 绑定上下文
-        String account = JwtUtil.getClaim(authorization, SecurityConsts.ACCOUNT);
-        UserContext userContext= new UserContext(new LoginUser(account));
-
-        // 如果没有抛出异常则代表登入成功，返回true
-        return true;
-    }
-
-    /**
-     * 刷新AccessToken，进行判断RefreshToken是否过期，未过期就返回新的AccessToken且继续正常访问
-     */
-    private boolean refreshToken(ServletRequest request, ServletResponse response) {
-        // 获取AccessToken(Shiro中getAuthzHeader方法已经实现)
-        String token = this.getAuthzHeader(request);
-        // 获取当前Token的帐号信息
-        String account = JwtUtil.getClaim(token, SecurityConsts.ACCOUNT);
-        String refreshTokenCacheKey = SecurityConsts.PREFIX_SHIRO_REFRESH_TOKEN + account;
-        // 判断Redis中RefreshToken是否存在
-        if (cacheClient.exists(refreshTokenCacheKey)) {
-            // 获取RefreshToken时间戳,及AccessToken中的时间戳
-            // 相比如果一致，进行AccessToken刷新
-            String currentTimeMillisRedis = cacheClient.get(refreshTokenCacheKey);
-            String tokenMillis= JwtUtil.getClaim(token, SecurityConsts.CURRENT_TIME_MILLIS);
-
-            if (tokenMillis.equals(currentTimeMillisRedis)) {
-
-                // 设置RefreshToken中的时间戳为当前最新时间戳
-                String currentTimeMillis = String.valueOf(System.currentTimeMillis());
-                Integer refreshTokenExpireTime = jwtProperties.getRefreshTokenExpireTime();
-                cacheClient.set(refreshTokenCacheKey, currentTimeMillis,refreshTokenExpireTime*60l);
-
-                // 刷新AccessToken，为当前最新时间戳
-                token = JwtUtil.sign(account, currentTimeMillis);
-
-                // 使用AccessToken 再次提交给ShiroRealm进行认证，如果没有抛出异常则登入成功，返回true
-                JwtToken jwtToken = new JwtToken(token);
-                this.getSubject(request, response).login(jwtToken);
-
-                // 设置响应的Header头新Token
-                HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-                httpServletResponse.setHeader(SecurityConsts.REQUEST_AUTH_HEADER, token);
-                httpServletResponse.setHeader("Access-Control-Expose-Headers", SecurityConsts.REQUEST_AUTH_HEADER);
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * 是否允许访问1
@@ -152,7 +89,68 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         }
         return false;
     }
+    /**
+     * 登录验证
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @Override
+    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        String authorization = httpServletRequest.getHeader(SecurityConsts.REQUEST_AUTH_HEADER);
 
+        JwtToken token = new JwtToken(authorization);
+        // 提交给realm进行登入，如果错误他会抛出异常并被捕获
+        getSubject(request, response).login(token);
+
+        // 绑定上下文
+        String account = JwtUtil.getClaim(authorization, SecurityConsts.ACCOUNT);
+        UserContext userContext= new UserContext(new LoginUser(account));
+
+        // 如果没有抛出异常则代表登入成功，返回true
+        return true;
+    }
+    /**
+     * 刷新AccessToken，进行判断RefreshToken是否过期，未过期就返回新的AccessToken且继续正常访问
+     */
+    private boolean refreshToken(ServletRequest request, ServletResponse response) {
+        // 获取AccessToken(Shiro中getAuthzHeader方法已经实现)
+        String token = this.getAuthzHeader(request);
+        // 获取当前Token的帐号信息
+        String account = JwtUtil.getClaim(token, SecurityConsts.ACCOUNT);
+        String refreshTokenCacheKey = SecurityConsts.PREFIX_SHIRO_REFRESH_TOKEN + account;
+        // 判断Redis中RefreshToken是否存在
+        if (cacheClient.exists(refreshTokenCacheKey)) {
+            // 获取RefreshToken时间戳,及AccessToken中的时间戳
+            // 相比如果一致，进行AccessToken刷新
+            String currentTimeMillisRedis = cacheClient.get(refreshTokenCacheKey);
+            String tokenMillis= JwtUtil.getClaim(token, SecurityConsts.CURRENT_TIME_MILLIS);
+
+            if (tokenMillis.equals(currentTimeMillisRedis)) {
+
+                // 设置RefreshToken中的时间戳为当前最新时间戳
+                String currentTimeMillis = String.valueOf(System.currentTimeMillis());
+                Integer refreshTokenExpireTime = jwtProperties.getRefreshTokenExpireTime();
+                cacheClient.set(refreshTokenCacheKey, currentTimeMillis,refreshTokenExpireTime*60l);
+
+                // 刷新AccessToken，为当前最新时间戳
+                token = JwtUtil.sign(account, currentTimeMillis);
+
+                // 使用AccessToken 再次提交给ShiroRealm进行认证，如果没有抛出异常则登入成功，返回true
+                JwtToken jwtToken = new JwtToken(token);
+                this.getSubject(request, response).login(jwtToken);
+
+                // 设置响应的Header头新Token
+                HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+                httpServletResponse.setHeader(SecurityConsts.REQUEST_AUTH_HEADER, token);
+                httpServletResponse.setHeader("Access-Control-Expose-Headers", SecurityConsts.REQUEST_AUTH_HEADER);
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * 401非法请求
      * @param req

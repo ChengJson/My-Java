@@ -15,7 +15,7 @@
         <property name="tokenExpireTime" value="60"/>
 
         <!-- refreshTokenExpireTime: 1440 单位秒-->
-        <property name="refreshTokenExpireTime" value="60"/>
+        <property name="refreshTokenExpireTime" value="600"/>
 
         <!-- #  token加密密钥secretKey: storywebkey-->
         <property name="secretKey" value="storywebkey"/>

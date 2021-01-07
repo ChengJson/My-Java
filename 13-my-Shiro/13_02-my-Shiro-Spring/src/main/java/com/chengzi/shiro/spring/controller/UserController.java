@@ -19,11 +19,7 @@ public class UserController {
     @RequestMapping(value = "/subLogin",method = RequestMethod.POST)
     public String subLogin(User user){
         Subject subject = SecurityUtils.getSubject();
-        try {
-            subject.login(new UsernamePasswordToken(user.getUsername(),user.getPassword()));
-        } catch (Exception e){
-            return e.getMessage();
-        }
+        subject.login(new UsernamePasswordToken(user.getUsername(),user.getPassword()));
         return "Login Success";
     }
 }

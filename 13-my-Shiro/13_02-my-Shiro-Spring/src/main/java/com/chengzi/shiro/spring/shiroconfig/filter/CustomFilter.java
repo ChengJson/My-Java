@@ -1,6 +1,7 @@
 package com.chengzi.shiro.spring.shiroconfig.filter;
 
 import com.chengzi.shiro.spring.intercepter.MyIntercepter;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
 import org.slf4j.Logger;
@@ -33,6 +34,10 @@ public class CustomFilter extends AuthorizationFilter {
             if (subject.hasRole(role))
                 return true;
         }
+        /**
+         * 这里抛出的异常不能被spring捕获到，因为是servlet级别的，realm中抛出的异常时login控制器，调用realm，已经进入springmvc
+         */
+        //if (1==1) {throw  new UnauthorizedException(); }
         return false;
     }
 

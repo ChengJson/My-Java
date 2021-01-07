@@ -9,7 +9,7 @@
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--shiro的过滤器工厂bean,和DelegatingFilterProxy配合使用-->
-   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+   <bean id="shiroFilter1" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
        <property name="securityManager" ref="defaultWebSecurityManager"/>
        <!--登录url-->
        <property name="loginUrl" value="login.jsp"/>

@@ -85,6 +85,18 @@ public class CustomTokenRealm extends AuthorizingRealm {
         throw new AuthenticationException("Token expired or incorrect.");
     }
 
+    //做授权
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        String username = (String) principals.getPrimaryPrincipal();
+        Set<String> rolesSet = getRolesByUserName(username);
+        Set<String> premissions = getPremissionByUserName(username);
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.setStringPermissions(premissions);
+        simpleAuthorizationInfo.setRoles(rolesSet);
+        return simpleAuthorizationInfo;
+    }
+
     private Set<String> getPremissionByUserName(String username) {
         Set<String> sets = new HashSet<>();
         sets.add("user:delete");
@@ -97,39 +109,6 @@ public class CustomTokenRealm extends AuthorizingRealm {
         roles.add("admin");
         roles.add("user");
         return roles;
-    }
-
-    /**
-     * 检查用户权限
-     * @param principals
-     * @return
-     */
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-
-        String account = JwtUtil.getClaim(principals.toString(), SecurityConsts.ACCOUNT);
-
-        //实际项目用应从service中查找账户
-        //BpUser bpUserInfo = userService.findUserByAccount(account);
-
-        //获取用户角色
-//        List<bprole> bpRoleList = roleService.findRoleByUserId(bpUserInfo.getId());
-////        //获取权限
-////        List<object> bpAuthorityList = bpAuthorityService.findByUserId(bpUserInfo.getId());
-////        for(BpRole bpRole : bpRoleList){
-////            authorizationInfo.addRole(bpRole.getName());
-////            for(Object auth: bpAuthorityList){
-////                authorizationInfo.addStringPermission(auth.toString());
-////            }
-////        }
-
-        Set<String> rolesSet = getRolesByUserName(account);
-        Set<String> premissions = getPremissionByUserName(account);
-        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        simpleAuthorizationInfo.setStringPermissions(premissions);
-        simpleAuthorizationInfo.setRoles(rolesSet);
-        return authorizationInfo;
     }
 
     private String getPasswordByUsername(String username) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,13 @@ public class StudentController {
 
     @RequestMapping(value = "/getAllStudent", method = RequestMethod.GET)
     public String test07(Integer id, String b, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Student> allStudnet = studentService.getAllStudnet();
+        List<Student> allStudnet = new ArrayList<>();
+        try {
+             allStudnet = studentService.getAllStudnet();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
         request.setAttribute("allStudent",allStudnet);
         return "studentList";
     }
