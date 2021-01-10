@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <bean class="com.chengzi.shiro.spring.shiroconfig.jwt.JwtProperties" id="jwtProperties">
+
+        <!--#  token过期时间，单位秒-->
+        <property name="tokenExpireTime" value="6000"/>
+
+        <!-- refreshTokenExpireTime: 1440 单位秒-->
+        <property name="refreshTokenExpireTime" value="12000"/>
+
+        <!-- #  token加密密钥secretKey: storywebkey-->
+        <property name="secretKey" value="storywebkey"/>
+
+        <!-- #  shiro缓存有效期，单位分钟,2*60=120 shiroCacheExpireTime: 120-->
+        <property name="shiroCacheExpireTime" value="120"/>
+    </bean>
+
+
+</beans>
