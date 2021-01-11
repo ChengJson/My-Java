@@ -17,7 +17,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>index.jsp</title>
+    <title>发生错误</title>
 </head>
 <body>
 <h1><%=msg%></h1>

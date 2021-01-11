@@ -14,8 +14,8 @@
     <!-- redis连接池 -->
     <bean  class="redis.clients.jedis.JedisPool" id="dspJedisPoolConfig">
         <!--<constructor-arg ref="jedisPoolConfig"/>-->
-        <!--<constructor-arg value="localhost" type="java.lang.String"/>-->
-        <constructor-arg value="172.16.200.208" type="java.lang.String"/>
+        <constructor-arg value="localhost" type="java.lang.String"/>
+        <!--<constructor-arg value="172.16.200.208" type="java.lang.String"/>-->
 
         <constructor-arg value="6379"/>
     </bean>

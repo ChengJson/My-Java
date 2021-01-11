@@ -22,4 +22,9 @@ public class UserController {
         subject.login(new UsernamePasswordToken(user.getUsername(),user.getPassword()));
         return "Login Success";
     }
+
+    @RequestMapping(value = "/test")
+    public String test(){
+        return "OK";
+    }
 }
