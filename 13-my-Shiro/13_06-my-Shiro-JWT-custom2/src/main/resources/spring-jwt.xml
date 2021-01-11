@@ -9,18 +9,19 @@
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 
-    <context:component-scan base-package="com.chengzi.shiro.spring.util"/>
+    <bean class="com.chengzi.shiro.spring.shiroconfig.jwt.JwtProperties" id="jwtProperties">
 
-    <!-- redis连接池 -->
-    <bean  class="redis.clients.jedis.JedisPool" id="dspJedisPoolConfig">
-        <!--<constructor-arg ref="jedisPoolConfig"/>-->
-        <!--<constructor-arg value="localhost" type="java.lang.String"/>-->
-        <constructor-arg value="172.16.200.208" type="java.lang.String"/>
+        <!--#  token过期时间，单位秒-->
+        <property name="tokenExpireTime" value="6000"/>
 
-        <constructor-arg value="6379"/>
-    </bean>
+        <!-- refreshTokenExpireTime: 1440 单位秒-->
+        <!--<property name="refreshTokenExpireTime" value="12000"/>-->
 
-    <bean  class="redis.clients.jedis.JedisPoolConfig" id="jedisPoolConfig">
+        <!-- #  token加密密钥secretKey: storywebkey-->
+        <property name="secretKey" value="storywebkey"/>
+
+        <!-- #  shiro缓存有效期，单位分钟,2*60=120 shiroCacheExpireTime: 120-->
+        <property name="shiroCacheExpireTime" value="120"/>
     </bean>
 
 
