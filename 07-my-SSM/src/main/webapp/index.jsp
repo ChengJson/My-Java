@@ -25,6 +25,7 @@
 <button id="test04" >test04</button><br>
 <button id="test05" >test05</button><br>
 <a href="getAllStudent">查看所有学生</a>
+<a href="pageHelper?pageNo=1&pageSize=2">测试分页</a>
 <script>
     $(function () {
         var name  = document.getElementById("input")

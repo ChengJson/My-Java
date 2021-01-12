@@ -1,6 +1,7 @@
 package com.chengzi.controller;
 
 import com.chengzi.beans.Student;
+import com.chengzi.dto.PageDto;
 import com.chengzi.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,5 +55,17 @@ public class StudentController {
 
 
 
+    @RequestMapping(value = "/pageHelper", method = RequestMethod.GET)
+    public String pageHelper(Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PageDto pageDto = new PageDto();
+        try {
+             pageDto = studentService.pageHelper(pageNo, pageSize);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        request.setAttribute("pageDto",pageDto);
+        return "pageList";
+    }
 
 }

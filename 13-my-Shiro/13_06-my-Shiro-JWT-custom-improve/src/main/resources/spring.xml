@@ -11,4 +11,5 @@
     <import resource="spring-shiro.xml"/>
     <import resource="classpath:spring-redis.xml"/>
     <import resource="classpath:spring-jwt.xml"/>
+    <context:component-scan base-package="com.chengzi.shiro.spring.shiroconfig.jwt"/>
 </beans>

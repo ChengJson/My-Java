@@ -2,6 +2,9 @@ package com.chengzi.service;
 
 import com.chengzi.beans.Student;
 import com.chengzi.dao.IStudentDao;
+import com.chengzi.dto.PageDto;
+import com.chengzi.util.PageUtil;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,5 +67,19 @@ public class StudentServiceImpl implements IStudentService {
     public List<Student> getAllStudnet() throws IOException {
         List<Student> students = studentDao.selectAllStudents();
         return students;
+    }
+
+    /**
+     * 测试分页插件
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageDto pageHelper(Integer pageNo, Integer pageSize) throws IOException {
+        PageHelper.startPage(pageNo, pageSize);
+        List<Student> students = studentDao.selectAllStudents();
+        PageDto pageDto = PageUtil.getPageDto(students);
+        return pageDto;
     }
 }

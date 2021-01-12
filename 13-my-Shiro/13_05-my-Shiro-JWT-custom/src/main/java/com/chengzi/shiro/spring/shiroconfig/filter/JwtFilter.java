@@ -129,8 +129,10 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     }
     /**
      * 刷新AccessToken，进行判断RefreshToken是否过期，未过期就返回新的AccessToken且继续正常访问
+     *  用jmeer压测，第一个请求到达后刷新了Token，并更改了缓存中的refreshToken的时间戳，以至于剩余请求校验时发现时间戳不一致导致
+     *  响应token失效
      */
-    private boolean refreshToken(ServletRequest request, ServletResponse response) {
+    private  boolean refreshToken(ServletRequest request, ServletResponse response) {
         // 获取AccessToken(Shiro中getAuthzHeader方法已经实现)
         String token = this.getAuthzHeader(request);
         // 获取当前Token的帐号信息
@@ -148,6 +150,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 // 设置RefreshToken中的时间戳为当前最新时间戳
                 String currentTimeMillis = String.valueOf(System.currentTimeMillis());
                 Integer refreshTokenExpireTime = jwtProperties.getRefreshTokenExpireTime();
+                System.out.println("***********************************************刷新Token**********************************************");
                 cacheClient.set(refreshTokenCacheKey, currentTimeMillis,refreshTokenExpireTime);
 
                 // 刷新AccessToken，为当前最新时间戳
