@@ -44,26 +44,6 @@ public class JwtController {
         Assert.notNull(user.getUsername(), "用户名不能为空");
         Assert.notNull(user.getPassword(), "密码不能为空");
 
-//        BpUser userBean = this.findUserByAccount(user.getUsername());
-//
-//        if(userBean==null){
-//            return new Result(false, "用户不存在", null, Constants.PASSWORD_CHECK_INVALID);
-//        }
-//
-//        //域账号直接提示账号不存在
-//        if ("1".equals(userBean.getDomainFlag())) {
-//            return new Result(false, "账号不存在", null, Constants.PASSWORD_CHECK_INVALID);
-//        }
-//
-//        String encodePassword = ShiroKit.md5(user.getPassword(), SecurityConsts.LOGIN_SALT);
-//        if (!encodePassword.equals(userBean.getPassword())) {
-//            return new Result(false, "用户名或密码错误", null, Constants.PASSWORD_CHECK_INVALID);
-//        }
-//
-//        //账号是否锁定
-//        if ("0".equals(userBean.getStatus())) {
-//            return new Result(false, "该账号已被锁定", null, Constants.PASSWORD_CHECK_INVALID);
-//        }
         if ("zhangsan".equals(user.getUsername()) && "123".equals(user.getPassword())){
             //验证成功后处理
             this.loginSuccess(user.getUsername(),response);
@@ -84,19 +64,10 @@ public class JwtController {
 
         String currentTimeMillis = String.valueOf(System.currentTimeMillis());
 
-        // 清除可能存在的Shiro权限信息缓存
-        String tokenKey=SecurityConsts.PREFIX_SHIRO_CACHE + account;
-        if (cacheClient.exists(tokenKey)) {
-            cacheClient.delKey(tokenKey);
-        }
-
         //更新RefreshToken缓存的时间戳
-//        String refreshTokenKey= SecurityConsts.PREFIX_SHIRO_REFRESH_TOKEN + account;
-//        if (cacheClient.exists(refreshTokenKey)) {
-//            cacheClient.set(refreshTokenKey, currentTimeMillis, jwtProperties.getRefreshTokenExpireTime());
-//        }else{
-//            cacheClient.set(refreshTokenKey, currentTimeMillis, jwtProperties.getRefreshTokenExpireTime());
-//        }
+        String refreshTokenKey= SecurityConsts.PREFIX_SHIRO_REFRESH_TOKEN + account;
+
+        cacheClient.set(refreshTokenKey, currentTimeMillis, jwtProperties.getTokenExpireTime());
 
         //生成token
         JSONObject json = new JSONObject();

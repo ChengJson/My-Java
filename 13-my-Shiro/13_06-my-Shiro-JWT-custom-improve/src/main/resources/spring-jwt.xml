@@ -12,16 +12,15 @@
     <bean class="com.chengzi.shiro.spring.shiroconfig.jwt.JwtProperties" id="jwtProperties">
 
         <!--#  token过期时间，单位秒-->
-        <property name="tokenExpireTime" value="6000"/>
+        <property name="tokenExpireTime" value="60"/>
 
-        <!-- refreshTokenExpireTime: 1440 单位秒-->
-        <!--<property name="refreshTokenExpireTime" value="12000"/>-->
 
         <!-- #  token加密密钥secretKey: storywebkey-->
         <property name="secretKey" value="storywebkey"/>
 
-        <!-- #  shiro缓存有效期，单位分钟,2*60=120 shiroCacheExpireTime: 120-->
-        <property name="shiroCacheExpireTime" value="120"/>
+
+        <!--更新tocken的时间-->
+        <property name="refreshCheckTime" value="10"/>
     </bean>
 
 

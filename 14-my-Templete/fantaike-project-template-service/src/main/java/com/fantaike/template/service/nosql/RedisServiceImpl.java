@@ -1,6 +1,6 @@
 package com.fantaike.template.service.nosql;
 
-import com.alibaba.dubbo.config.annotation.Service;
+import org.apache.dubbo.config.annotation.Service;
 import com.fantaike.template.dto.nosql.RedisService;
 import com.fantaike.template.util.CommonLogger;
 import org.springframework.beans.factory.annotation.Autowired;

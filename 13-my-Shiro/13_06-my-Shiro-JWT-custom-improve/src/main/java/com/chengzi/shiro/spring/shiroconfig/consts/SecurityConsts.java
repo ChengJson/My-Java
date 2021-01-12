@@ -19,10 +19,10 @@ public class SecurityConsts {
      */
     public static final String ORG_ID_TOKEN = "orgIdToken";
 
-    /**
-     * Shiro redis 前缀
-     */
-    public static final String PREFIX_SHIRO_CACHE = "story-admin:cache:";
+//    /**
+//     * Shiro redis 前缀
+//     */
+//    public static final String PREFIX_SHIRO_CACHE = "story-admin:cache:";
 
     /**
      * redis-key-前缀-shiro:refresh_token
