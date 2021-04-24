@@ -3,19 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>fantaike-project-template-parent</artifactId>
+        <artifactId>14-fantaike-project-template-parent</artifactId>
         <groupId>com.fantaike.template</groupId>
         <version>1.0</version>
-        <relativePath>../fantaike-project-template-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>fantaike-project-template-api</artifactId>
-    <name>api</name>
+    <artifactId>14-fantaike-project-template-api</artifactId>
+    <version>1.0</version>
 
     <dependencies>
         <dependency>
             <groupId>com.fantaike.template</groupId>
-            <artifactId>fantaike-project-template-core</artifactId>
+            <artifactId>14-fantaike-project-template-core</artifactId>
             <version>1.0</version>
         </dependency>
         <!-- 实体类使用mybatis-plus 注解使用 -->

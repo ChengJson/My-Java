@@ -2,26 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>fantaike-project-template-parent</artifactId>
+        <artifactId>14-fantaike-project-template-parent</artifactId>
         <groupId>com.fantaike.template</groupId>
         <version>1.0</version>
-        <relativePath>../fantaike-project-template-parent/pom.xml</relativePath>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>fantaike-project-template-service</artifactId>
-    <name>service</name>
+    <artifactId>14-fantaike-project-template-service</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.fantaike.template</groupId>
-            <artifactId>fantaike-project-template-core</artifactId>
-            <version>${project.version}</version>
+            <artifactId>14-fantaike-project-template-api</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.fantaike.template</groupId>
-            <artifactId>fantaike-project-template-api</artifactId>
-            <version>${project.version}</version>
+            <artifactId>14-fantaike-project-template-core</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
